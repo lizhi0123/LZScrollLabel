@@ -9,10 +9,9 @@
 import UIKit
 
 public class LZScrollLabel: UIView {
-    
     private(set) var scrollView: UIScrollView!
     private(set) var mainLabel: UILabel!
-    private var label2:UILabel!
+    private var label2: UILabel!
     /// 速度
     public var scrollSpeed: Double = 100
     var labelSpacing = 20
@@ -23,7 +22,8 @@ public class LZScrollLabel: UIView {
         self.setupSubviews(frame)
     }
     
-    required public init?(coder aDecoder: NSCoder) {
+    @available(*, unavailable)
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -47,22 +47,21 @@ public class LZScrollLabel: UIView {
         super.layoutSubviews()
         
         self.scrollView.frame = self.bounds
-        self.scrollView.contentSize = CGSize.init(width: self.mainLabel.frame.size.width + CGFloat( 2 * labelSpacing), height: 0)
+        self.scrollView.contentSize = CGSize(width: self.mainLabel.frame.size.width + CGFloat(2 * self.labelSpacing), height: 0)
         
-       
         if self.mainLabel.frame.size.width > self.scrollView.frame.size.width {
-            self.mainLabel.center = CGPoint.init(x: self.mainLabel.frame.size.width / 2 + CGFloat( labelSpacing), y: self.scrollView.center.y)
-            self.label2.center = CGPoint(x: self.mainLabel.center.x + self.mainLabel.frame.width + CGFloat(labelSpacing), y: self.mainLabel.center.y)
+            self.mainLabel.center = CGPoint(x: self.mainLabel.frame.size.width / 2 + CGFloat(self.labelSpacing), y: self.scrollView.center.y)
+            self.label2.center = CGPoint(x: self.mainLabel.center.x + self.mainLabel.frame.width + CGFloat(self.labelSpacing), y: self.mainLabel.center.y)
             self.setAnimate()
-        }else {
-            self.mainLabel.center = CGPoint.init(x: self.mainLabel.frame.size.width / 2 , y: self.scrollView.center.y)
+        } else {
+            self.mainLabel.center = CGPoint(x: self.mainLabel.frame.size.width / 2, y: self.scrollView.center.y)
         }
     }
     
     private func setAnimate() {
-        let labelW = self.mainLabel.frame.size.width
+        let labelW = self.mainLabel.frame.size.width + CGFloat(self.labelSpacing)
 //        let scrollW = self.scrollView.frame.size.width
-        let scrollInterval = labelW/scrollSpeed
+        let scrollInterval = labelW / self.scrollSpeed
         
         UIView.animate(withDuration: scrollInterval, delay: 0, options: UIView.AnimationOptions.curveLinear) {
             self.scrollView.contentOffset = CGPoint(x: labelW, y: 0)
@@ -72,29 +71,26 @@ public class LZScrollLabel: UIView {
                 self.setAnimate()
             }
         }
-
     }
     
     // MARK: - public method
+
     /*
      * title: label内容
      * alignment: 文字对齐方式
      * font: 字体大小
      */
     public func setTitle(_ title: NSString, _ color: UIColor = UIColor.red, _ alignment: NSTextAlignment = .left, _ font: UIFont = UIFont.systemFont(ofSize: 15)) {
-        label(self.mainLabel, title: title, color: color, alignment: alignment, font: font)
+        self.label(self.mainLabel, title: title, color: color, alignment: alignment, font: font)
         
-        label(self.label2, title: title, color: color, alignment: alignment, font: font)
+        self.label(self.label2, title: title, color: color, alignment: alignment, font: font)
     }
     
-    
-    private func label(_ label:UILabel,  title: NSString,  color: UIColor , alignment: NSTextAlignment,  font: UIFont ) {
-        
+    private func label(_ label: UILabel, title: NSString, color: UIColor, alignment: NSTextAlignment, font: UIFont) {
         label.text = title as String
         label.textAlignment = alignment
         label.font = font
         label.textColor = color
         label.sizeToFit()
     }
-    
 }
