@@ -1,0 +1,16 @@
+PODS:
+  - LZScrollLabel (0.1.0)
+
+DEPENDENCIES:
+  - LZScrollLabel (from `../`)
+
+EXTERNAL SOURCES:
+  LZScrollLabel:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  LZScrollLabel: 8b93d865ae99e1a981d846177f46fa35418da6fd
+
+PODFILE CHECKSUM: 12fa8f88d4b7ff1f94a07efb8dfd36ad950bc28c
+
+COCOAPODS: 1.11.2
