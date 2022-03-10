@@ -14,7 +14,8 @@ public class LZScrollLabel: UIView {
     private(set) var mainLabel: UILabel!
     private var label2:UILabel!
     /// 速度
-    public var scrollSpeed: Double = 100 
+    public var scrollSpeed: Double = 100
+    var labelSpacing = 20
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,12 +47,15 @@ public class LZScrollLabel: UIView {
         super.layoutSubviews()
         
         self.scrollView.frame = self.bounds
-        self.scrollView.contentSize = CGSize.init(width: self.mainLabel.frame.size.width, height: 0)
+        self.scrollView.contentSize = CGSize.init(width: self.mainLabel.frame.size.width + CGFloat( 2 * labelSpacing), height: 0)
         
-        self.mainLabel.center = CGPoint.init(x: self.mainLabel.frame.size.width / 2, y: self.scrollView.center.y)
-        self.label2.center = CGPoint(x: self.mainLabel.center.x + self.mainLabel.frame.width, y: self.mainLabel.center.y)
+       
         if self.mainLabel.frame.size.width > self.scrollView.frame.size.width {
+            self.mainLabel.center = CGPoint.init(x: self.mainLabel.frame.size.width / 2 + CGFloat( labelSpacing), y: self.scrollView.center.y)
+            self.label2.center = CGPoint(x: self.mainLabel.center.x + self.mainLabel.frame.width + CGFloat(labelSpacing), y: self.mainLabel.center.y)
             self.setAnimate()
+        }else {
+            self.mainLabel.center = CGPoint.init(x: self.mainLabel.frame.size.width / 2 , y: self.scrollView.center.y)
         }
     }
     
@@ -78,16 +82,19 @@ public class LZScrollLabel: UIView {
      * font: 字体大小
      */
     public func setTitle(_ title: NSString, _ color: UIColor = UIColor.red, _ alignment: NSTextAlignment = .left, _ font: UIFont = UIFont.systemFont(ofSize: 15)) {
-        self.mainLabel.text = title as String
-        self.mainLabel.textAlignment = alignment
-        self.mainLabel.font = font
-        self.mainLabel.textColor = color
-        self.mainLabel.sizeToFit()
+        label(self.mainLabel, title: title, color: color, alignment: alignment, font: font)
         
-        self.label2.text = title as String
-        self.label2.textAlignment = alignment
-        self.label2.font = font
-        self.label2.textColor = color
-        self.label2.sizeToFit()
+        label(self.label2, title: title, color: color, alignment: alignment, font: font)
     }
+    
+    
+    private func label(_ label:UILabel,  title: NSString,  color: UIColor , alignment: NSTextAlignment,  font: UIFont ) {
+        
+        label.text = title as String
+        label.textAlignment = alignment
+        label.font = font
+        label.textColor = color
+        label.sizeToFit()
+    }
+    
 }
