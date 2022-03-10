@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class LZScrollLabel: UIView {
+open class LZScrollLabel: UIView {
     private(set) var scrollView: UIScrollView!
     private(set) var mainLabel: UILabel!
     private var label2: UILabel!
@@ -81,12 +81,12 @@ public class LZScrollLabel: UIView {
      * font: 字体大小
      */
     public func setTitle(_ title: NSString, _ color: UIColor = UIColor.red, _ alignment: NSTextAlignment = .left, _ font: UIFont = UIFont.systemFont(ofSize: 15)) {
-        self.label(self.mainLabel, title: title, color: color, alignment: alignment, font: font)
+        self.configLabel(self.mainLabel, title: title, color: color, alignment: alignment, font: font)
         
-        self.label(self.label2, title: title, color: color, alignment: alignment, font: font)
+        self.configLabel(self.label2, title: title, color: color, alignment: alignment, font: font)
     }
     
-    private func label(_ label: UILabel, title: NSString, color: UIColor, alignment: NSTextAlignment, font: UIFont) {
+    private func configLabel(_ label: UILabel, title: NSString, color: UIColor, alignment: NSTextAlignment, font: UIFont) {
         label.text = title as String
         label.textAlignment = alignment
         label.font = font
