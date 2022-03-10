@@ -2,8 +2,8 @@
 //  ScrollLabel.swift
 //  ScrollLabel
 //
-//  Created by Kingpin on 2017/5/3.
-//  Copyright © 2017年 yuejieee. All rights reserved.
+//  Created by Lizhi on 2022/3/3.
+//  Copyright © 2022年 lizhi. All rights reserved.
 //
 
 import UIKit
@@ -57,10 +57,10 @@ public class LZScrollLabel: UIView {
     
     private func setAnimate() {
         let labelW = self.mainLabel.frame.size.width
-        let scrollW = self.scrollView.frame.size.width
+//        let scrollW = self.scrollView.frame.size.width
         let scrollInterval = labelW/scrollSpeed
-       
-        UIView.animate(withDuration: scrollInterval) {
+        
+        UIView.animate(withDuration: scrollInterval, delay: 0, options: UIView.AnimationOptions.curveLinear) {
             self.scrollView.contentOffset = CGPoint(x: labelW, y: 0)
         } completion: { finished in
             if finished {
@@ -68,15 +68,6 @@ public class LZScrollLabel: UIView {
                 self.setAnimate()
             }
         }
-
-        /*
-        UIView.animateKeyframes(withDuration: 10, delay: 1, options: UIView.KeyframeAnimationOptions.allowUserInteraction) {
-            var point = self.scrollView.contentOffset
-            point.x = self.scrollView.contentSize.width  - 320
-            self.scrollView.contentOffset = point
-        } completion: { finished in
-            
-        }*/
 
     }
     
