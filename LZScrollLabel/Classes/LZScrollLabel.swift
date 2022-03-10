@@ -8,11 +8,12 @@
 
 import UIKit
 
-public class YJScrollLabel: UIView {
+public class LZScrollLabel: UIView {
     
-    private var scrollView: UIScrollView!
-    private var contentLabel: UILabel!
-    public var scrollInterval: Double = 10 // scrollInterval: defualt 10s
+    private(set) var scrollView: UIScrollView!
+    private(set) var contentLabel: UILabel!
+    /// 速度
+    public var scrollSpeed: Double = 100 
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,24 +53,37 @@ public class YJScrollLabel: UIView {
         let offsetX = self.scrollView.contentOffset.x
         let labelW = self.contentLabel.frame.size.width
         let scrollW = self.scrollView.frame.size.width
+        let scrollInterval = labelW/scrollSpeed
         
+        
+        /*
         if offsetX == 0 {
-            UIView.animate(withDuration: self.scrollInterval, animations: {
-                self.scrollView.contentOffset = CGPoint.init(x: labelW - scrollW, y: 0)
+            UIView.animate(withDuration: scrollInterval, animations: {
+                let offSetNewX = labelW - scrollW
+                print("-- offSetNewX = \(offSetNewX),labelW = \(labelW),scrollW =\(scrollW)")
+                self.scrollView.contentOffset = CGPoint.init(x: offSetNewX, y: 0)
             }) { (finish) in
                 if finish {
                     self.setAnimate()
                 }
             }
         } else {
-            UIView.animate(withDuration: self.scrollInterval, animations: {
+            UIView.animate(withDuration: scrollInterval, animations: {
                 self.scrollView.contentOffset = CGPoint.init(x: 0, y: 0)
             }) { (finish) in
                 if finish {
                     self.setAnimate()
                 }
             }
+        }*/
+        UIView.animateKeyframes(withDuration: 10, delay: 1, options: UIView.KeyframeAnimationOptions.allowUserInteraction) {
+            var point = self.scrollView.contentOffset
+            point.x = self.scrollView.contentSize.width  - 320
+            self.scrollView.contentOffset = point
+        } completion: { finished in
+            
         }
+
     }
     
     // MARK: - public method
@@ -78,7 +92,7 @@ public class YJScrollLabel: UIView {
      * alignment: 文字对齐方式
      * font: 字体大小
      */
-    public func setTitle(_ title: NSString, _ color: UIColor = UIColor.black, _ alignment: NSTextAlignment = .left, _ font: UIFont = UIFont.systemFont(ofSize: 15)) {
+    public func setTitle(_ title: NSString, _ color: UIColor = UIColor.red, _ alignment: NSTextAlignment = .left, _ font: UIFont = UIFont.systemFont(ofSize: 15)) {
         self.contentLabel.text = title as String
         self.contentLabel.textAlignment = alignment
         self.contentLabel.font = font
