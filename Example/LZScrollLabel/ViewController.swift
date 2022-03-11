@@ -30,6 +30,7 @@ class ViewController: UIViewController {
 //        scrollLabel.textColor = .red
 //        scrollLabel.text = "123456789😀😁🤣😂😄😅😆😇😉😊🙂😊🙂🙃☺️😋😌😍😘ABCDEFG"
         scrollLabel.setTitle("1 2 3 4 5 6 7 8 9 0 A B C D E F G H I J K L M NOPQRSTUVWXYZ")
+        scrollLabel.startAnimate()
         scrollLabel.clipsToBounds = true
         self.view.addSubview(scrollLabel)
     }
